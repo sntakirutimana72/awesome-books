@@ -1,8 +1,8 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-# microverse-html-css-template
+# Awesome Books
 
-> A Microverse GitHub template for projects built with _`html`_, _`css`_, and _`javascript`_ only.
+A Books manager webapp that lists existing records and allows user to add and remove to and from the books record.
 
 
 ## Built With
@@ -10,9 +10,6 @@
 - html
 - css
 - JavaScript
-
-
-## Live Demo (if available)
 
 
 ## Screenshots (if available)
@@ -50,6 +47,10 @@ Open _Terminal/Shell_ inside your _VSCode_ and run
   ```
     npm run lint:style
   ```
+- For _eslint_ tests, run
+  ```
+    npm run lint:es
+  ```
 
 ### Deployment
 
@@ -58,7 +59,11 @@ Open _Terminal/Shell_ inside your _VSCode_ and run
 
 👤 **Steve**
 
-- GitHub: [@github-profile](https://github.com/sntakirutimana72)
+- GitHub: [@sntakirutimana72](../../../)
+
+ **Nadezhda**
+
+- GitHub: [@petushka1](https://github.com/petushka1)
 
 ## 🤝 Contributing
 

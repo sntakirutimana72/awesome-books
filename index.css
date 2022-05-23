@@ -6,4 +6,31 @@ html {
 
 body {
   margin: 0;
+  padding: 15px;
+}
+
+.books-list {
+  max-width: 300px;
+}
+
+.bookItem {
+  padding-bottom: 10px;
+  border-bottom: 1px solid grey;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-top: 15px;
+  max-width: 300px;
+}
+
+.field {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+input[type='submit'] {
+  max-width: fit-content;
 }
