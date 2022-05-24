@@ -53,6 +53,12 @@ main {
   background: rgb(185, 182, 182);
 }
 
+.btn {
+  border-radius: 2px;
+  box-shadow: 0 0 3px black;
+  cursor: pointer;
+}
+
 .sep-line {
   width: 15%;
   height: 2px;
