@@ -1,5 +1,10 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable radix */
+/* eslint-disable max-classes-per-file */
+
+const booksList = document.querySelector('.books-list');
+const bookUniqueId = 'bookStorage';
+
 class Book {
   constructor(id, title, author) {
     this.bookId = id;
@@ -9,9 +14,9 @@ class Book {
 }
 
 class BooksManager {
-
   constructor() {
-    let idCounterTemp = localStorage.getItem('idCounter');
+    const idCounterTemp = localStorage.getItem('idCounter');
+
     if (idCounterTemp !== null) {
       this.idCounter = parseInt(idCounterTemp);
     } else {
@@ -19,10 +24,11 @@ class BooksManager {
     }
 
     const booksTemp = localStorage.getItem(bookUniqueId);
+
     if (booksTemp !== null) {
       this.books = JSON.parse(booksTemp);
     } else {
-    this.books = []
+      this.books = [];
     }
   }
 
@@ -36,22 +42,18 @@ class BooksManager {
     this.books.push(newBook);
     localStorage.setItem(bookUniqueId, JSON.stringify(this.books));
     localStorage.setItem('idCounter', this.idCounter);
-    return newBook
+    return newBook;
   }
 
-  *getAllBooks() {
-    for (const book of this.books) {
-      yield book;
-    }
+  getAllBooks() {
+    return this.books;
   }
 
   isEmpty() {
-    return this.books.length === 0 ? true : false;
+    return this.books.length === 0;
   }
 }
 
-const booksList = document.querySelector('.books-list');
-const bookUniqueId = 'bookStorage';
 const booksManager = new BooksManager();
 
 function renderBook(book) {
@@ -71,7 +73,7 @@ function toggleBooksListClasses(force) {
 }
 
 function populateBooks() {
-  const books = [...booksManager.getAllBooks()];
+  const books = booksManager.getAllBooks();
   books.forEach((book) => { booksList.appendChild(renderBook(book)); });
 
   if (!booksManager.isEmpty()) {
@@ -95,7 +97,7 @@ function add(event) {
   event.preventDefault();
   toggleBooksListClasses(false);
   const book = booksManager.add(this.elements.title.value,
-  this.elements.author.value);
+    this.elements.author.value);
   booksList.appendChild(renderBook(book));
 }
 
