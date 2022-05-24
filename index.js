@@ -2,13 +2,14 @@
 /* eslint-disable radix */
 class Book {
   constructor(id, title, author) {
-  this.bookId = id;
-  this.bookTitle = title;
-  this.bookAuthor = author;
-}
+    this.bookId = id;
+    this.bookTitle = title;
+    this.bookAuthor = author;
+  }
 }
 
 class BooksManager {
+
   constructor() {
     let idCounterTemp = localStorage.getItem('idCounter');
     if (idCounterTemp !== null) {
@@ -37,8 +38,17 @@ class BooksManager {
     localStorage.setItem('idCounter', this.idCounter);
     return newBook
   }
-}
 
+  *getAllBooks() {
+    for (const book of this.books) {
+      yield book;
+    }
+  }
+
+  isEmpty() {
+    return this.books.length === 0 ? true : false;
+  }
+}
 
 const booksList = document.querySelector('.books-list');
 const bookUniqueId = 'bookStorage';
@@ -49,21 +59,23 @@ function renderBook(book) {
   bookItem.id = book.bookId;
   bookItem.className = 'bookItem';
   bookItem.innerHTML = `
-    <h2>${book.bookTitle}</h2>
-    <p>${book.bookAuthor}</p>
+    <span><b>“${book.bookTitle}”</b> by ${book.bookAuthor}</span>
     <button class="btn" type="button" name="button" value="remove">Remove</button>
   `;
 
   return bookItem;
 }
 
+function toggleBooksListClasses(force) {
+  booksList.classList.toggle('empty-list', force);
+}
+
 function populateBooks() {
-  let books = localStorage.getItem(bookUniqueId);
-  if (books !== null) {
-    books = JSON.parse(books);
-    books.forEach((book) => { booksList.appendChild(renderBook(book)); });
-  } else {
-    localStorage.setItem('idCounter', 0);
+  const books = [...booksManager.getAllBooks()];
+  books.forEach((book) => { booksList.appendChild(renderBook(book)); });
+
+  if (!booksManager.isEmpty()) {
+    toggleBooksListClasses(false);
   }
 }
 
@@ -72,11 +84,16 @@ function remove(e) {
     const bookItem = e.target.parentElement;
     bookItem.style.display = 'none';
     booksManager.remove(parseInt(bookItem.id));
+
+    if (booksManager.isEmpty()) {
+      toggleBooksListClasses(true);
+    }
   }
 }
 
 function add(event) {
   event.preventDefault();
+  toggleBooksListClasses(false);
   const book = booksManager.add(this.elements.title.value,
   this.elements.author.value);
   booksList.appendChild(renderBook(book));
