@@ -1,17 +1,8 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable radix */
-/* eslint-disable max-classes-per-file */
 
 const booksList = document.querySelector('.books-list');
 const bookUniqueId = 'bookStorage';
-
-class Book {
-  constructor(id, title, author) {
-    this.bookId = id;
-    this.bookTitle = title;
-    this.bookAuthor = author;
-  }
-}
 
 class BooksManager {
   constructor() {
