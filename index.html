@@ -12,23 +12,24 @@
     </head>
     <body>
         <main>
-          <header id="header">
-            <h3>Awesome Books</h3>
-            <nav class="nav">
-              <ul class="listStyle">
-                <li><a href="#list">List</a></li>
-                <li><a href="#add">Add new</a></li>
-                <li><a href="#contact">Contact</a></li>
-              </ul>
-            </nav>
-          </header>
-            <p></p>
-            <section id="list" class="books-manager section invisible">
+            <header id="header">
+                <h3>Awesome Books</h3>
+                <nav class="nav">
+                <ul class="listStyle">
+                    <li><a href="#list" class="active">List</a></li>
+                    <li><a href="#add">Add new</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                </nav>
+            </header>
+
+            <section id="list" class="books-manager section">
                 <h1>All awesome books</h1>
 
                 <div class="books-list empty-list"></div>
 
             </section>
+
             <section id="add" class="section invisible">
               <div>
                 <form action="#" class="books-creator">
@@ -39,7 +40,8 @@
                 </form>
               </div>
             </section>
-            <section id="contact" class="section">
+
+            <section id="contact" class="section invisible">
               <h2>Contact information</h2>
               <p>Do have questions or you want to say "Hello"?
                 You can reach out to us!

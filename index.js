@@ -95,3 +95,28 @@ function add(event) {
 document.forms[0].addEventListener('submit', add);
 document.body.addEventListener('click', remove);
 document.addEventListener('DOMContentLoaded', populateBooks);
+
+const anchors = document.body.querySelectorAll('.listStyle a');
+
+function switchSection(event) {
+  event.preventDefault();
+
+  this.classList.toggle('active', true);
+
+  let recentSectionId;
+
+  for (const anchor of anchors) {
+    if (anchor !== this && anchor.classList.contains('active')) {
+      recentSectionId = anchor.href.split('#')[1];
+      anchor.classList.remove('active');
+      break;
+    }
+  }
+
+  if (recentSectionId !== undefined) {
+    document.getElementById(recentSectionId).classList.add('invisible');
+    document.getElementById(this.href.split('#')[1]).classList.remove('invisible');
+  }
+}
+
+anchors.forEach((anchor) => anchor.addEventListener('click', switchSection));

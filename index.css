@@ -14,8 +14,8 @@ body {
 
 main {
   display: flex;
-  box-sizing: border-box;
   flex-direction: column;
+  box-sizing: border-box;
   max-width: 500px;
   padding: 15px;
   margin: 0 auto;
@@ -47,7 +47,7 @@ main {
 }
 
 .bookItem {
-  padding: 2px;
+  padding: 4px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -104,6 +104,7 @@ input[type='submit'] {
 }
 
 /* navbar styles */
+
 a {
   text-decoration: none;
   color: inherit;
@@ -122,6 +123,18 @@ a {
   gap: 10px;
 }
 
+.listStyle a:hover,
+.listStyle a:focus,
+.listStyle a.active {
+  padding: 5px 8px;
+  border-radius: 4px;
+  box-shadow: 0 0 3px black;
+}
+
+.listStyle a.active {
+  color: blue;
+}
+
 .listStyle li {
   border-right: solid black 2px;
   padding-right: 10px;
@@ -129,6 +142,7 @@ a {
 
 .listStyle li:last-child {
   border: none;
+  padding: none;
 }
 
 .invisible {
