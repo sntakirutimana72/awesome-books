@@ -1,5 +1,6 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable radix */
+/* eslint-disable no-restricted-syntax */
 
 const booksList = document.querySelector('.books-list');
 const bookUniqueId = 'bookStorage';
@@ -107,7 +108,7 @@ function switchSection(event) {
 
   for (const anchor of anchors) {
     if (anchor !== this && anchor.classList.contains('active')) {
-      recentSectionId = anchor.href.split('#')[1];
+      [, recentSectionId] = anchor.href.split('#');
       anchor.classList.remove('active');
       break;
     }
