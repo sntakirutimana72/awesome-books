@@ -1,7 +1,9 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable radix */
+/* eslint-disable no-restricted-syntax */
 
 const booksList = document.querySelector('.books-list');
+const anchors = document.body.querySelectorAll('.listStyle a');
 const bookUniqueId = 'bookStorage';
 
 class BooksManager {
@@ -72,6 +74,27 @@ function populateBooks() {
   }
 }
 
+function switchSection(event) {
+  event.preventDefault();
+
+  this.classList.toggle('active', true);
+
+  let recentSectionId;
+
+  for (const anchor of anchors) {
+    if (anchor !== this && anchor.classList.contains('active')) {
+      [, recentSectionId] = anchor.href.split('#');
+      anchor.classList.remove('active');
+      break;
+    }
+  }
+
+  if (recentSectionId !== undefined) {
+    document.getElementById(recentSectionId).classList.add('invisible');
+    document.getElementById(this.href.split('#')[1]).classList.remove('invisible');
+  }
+}
+
 function remove(e) {
   if (e.target.classList.contains('btn')) {
     const bookItem = e.target.parentElement;
@@ -90,8 +113,11 @@ function add(event) {
   const book = booksManager.add(this.elements.title.value,
     this.elements.author.value);
   booksList.appendChild(renderBook(book));
+
+  document.body.querySelector('.listStyle a').click();
 }
 
 document.forms[0].addEventListener('submit', add);
 document.body.addEventListener('click', remove);
 document.addEventListener('DOMContentLoaded', populateBooks);
+anchors.forEach((anchor) => anchor.addEventListener('click', switchSection));

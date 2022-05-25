@@ -10,12 +10,17 @@ html {
 
 body {
   margin: 0;
-  padding: 15px;
 }
 
 main {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
   max-width: 500px;
+  padding: 15px;
   margin: 0 auto;
+  min-height: 100vh;
+  gap: 20px;
 }
 
 .books-manager {
@@ -42,7 +47,7 @@ main {
 }
 
 .bookItem {
-  padding: 2px;
+  padding: 4px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -58,17 +63,11 @@ main {
   cursor: pointer;
 }
 
-.sep-line {
-  width: 15%;
-  height: 2px;
-  background: #272727;
-}
-
 form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  margin: 0 auto;
   gap: 16px;
   padding-top: 15px;
   max-width: 300px;
@@ -102,4 +101,59 @@ input[type='submit'] {
   border-radius: 4px;
   box-shadow: 0 0 3px #272727;
   cursor: pointer;
+}
+
+/* navbar styles */
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.listStyle {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 10px;
+}
+
+.listStyle a:hover,
+.listStyle a:focus,
+.listStyle a.active {
+  padding: 5px 8px;
+  border-radius: 4px;
+  box-shadow: 0 0 3px black;
+}
+
+.listStyle a.active {
+  color: blue;
+}
+
+.listStyle li {
+  border-right: solid black 2px;
+  padding-right: 10px;
+}
+
+.listStyle li:last-child {
+  border: none;
+  padding: none;
+}
+
+.invisible {
+  display: none;
+}
+
+.section {
+  flex-grow: 1;
+  width: 100%;
+}
+
+.section h2 {
+  text-align: center;
 }
