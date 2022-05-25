@@ -5,22 +5,29 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Awesome Books</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="index.css">
     </head>
     <body>
         <main>
             <section class="books-manager">
-                <h1>Awesome books</h1>
-                <div class="books-list">
+                <h1>All awesome books</h1>
 
-                </div>
+                <div class="books-list empty-list"></div>
+
+                <div class="sep-line"></div>
+
                 <form action="#" class="books-creator">
+                    <h2>Add a new book</h2>
                     <input type="text" class="field" name="title" placeholder="Title" required>
                     <input type="text" class="field" name="author" placeholder="Author" required>
                     <input type="submit" value="Add">
                 </form>
             </section>
         </main>
+        <script src="assets/js/book.js"></script>
         <script src="index.js"></script>
     </body>
 </html>

@@ -4,26 +4,71 @@
 const booksList = document.querySelector('.books-list');
 const bookUniqueId = 'bookStorage';
 
+class BooksManager {
+  constructor() {
+    const idCounterTemp = localStorage.getItem('idCounter');
+
+    if (idCounterTemp !== null) {
+      this.idCounter = parseInt(idCounterTemp);
+    } else {
+      this.idCounter = 0;
+    }
+
+    const booksTemp = localStorage.getItem(bookUniqueId);
+
+    if (booksTemp !== null) {
+      this.books = JSON.parse(booksTemp);
+    } else {
+      this.books = [];
+    }
+  }
+
+  remove(id) {
+    this.books = this.books.filter((book) => book.bookId !== id);
+    localStorage.setItem(bookUniqueId, JSON.stringify(this.books));
+  }
+
+  add(title, author) {
+    const newBook = new Book(++this.idCounter, title, author);
+    this.books.push(newBook);
+    localStorage.setItem(bookUniqueId, JSON.stringify(this.books));
+    localStorage.setItem('idCounter', this.idCounter);
+    return newBook;
+  }
+
+  getAllBooks() {
+    return this.books;
+  }
+
+  isEmpty() {
+    return this.books.length === 0;
+  }
+}
+
+const booksManager = new BooksManager();
+
 function renderBook(book) {
   const bookItem = document.createElement('div');
-  bookItem.id = book.id;
+  bookItem.id = book.bookId;
   bookItem.className = 'bookItem';
   bookItem.innerHTML = `
-    <h2>${book.title}</h2>
-    <p>${book.author}</p>
+    <span><b>“${book.bookTitle}”</b> by ${book.bookAuthor}</span>
     <button class="btn" type="button" name="button" value="remove">Remove</button>
   `;
 
   return bookItem;
 }
 
+function toggleBooksListClasses(force) {
+  booksList.classList.toggle('empty-list', force);
+}
+
 function populateBooks() {
-  let books = localStorage.getItem(bookUniqueId);
-  if (books !== null) {
-    books = JSON.parse(books);
-    books.forEach((book) => { booksList.appendChild(renderBook(book)); });
-  } else {
-    localStorage.setItem('idCounter', 0);
+  const books = booksManager.getAllBooks();
+  books.forEach((book) => { booksList.appendChild(renderBook(book)); });
+
+  if (!booksManager.isEmpty()) {
+    toggleBooksListClasses(false);
   }
 }
 
@@ -31,31 +76,20 @@ function remove(e) {
   if (e.target.classList.contains('btn')) {
     const bookItem = e.target.parentElement;
     bookItem.style.display = 'none';
+    booksManager.remove(parseInt(bookItem.id));
 
-    const books = JSON.parse(localStorage.getItem(bookUniqueId));
-    const reducedBooks = books.filter((book) => book.id !== parseInt(bookItem.id));
-    localStorage.setItem(bookUniqueId, JSON.stringify(reducedBooks));
+    if (booksManager.isEmpty()) {
+      toggleBooksListClasses(true);
+    }
   }
 }
 
 function add(event) {
   event.preventDefault();
-
-  let idCounter = parseInt(localStorage.getItem('idCounter'));
-  const newBook = {
-    id: ++idCounter,
-    title: this.elements.title.value,
-    author: this.elements.author.value,
-  };
-  booksList.appendChild(renderBook(newBook));
-
-  let books = localStorage.getItem(bookUniqueId);
-  if (books === null) books = [];
-  else books = JSON.parse(books);
-
-  books.push(newBook);
-  localStorage.setItem(bookUniqueId, JSON.stringify(books));
-  localStorage.setItem('idCounter', idCounter);
+  toggleBooksListClasses(false);
+  const book = booksManager.add(this.elements.title.value,
+    this.elements.author.value);
+  booksList.appendChild(renderBook(book));
 }
 
 document.forms[0].addEventListener('submit', add);
