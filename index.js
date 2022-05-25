@@ -73,32 +73,6 @@ function populateBooks() {
   }
 }
 
-function remove(e) {
-  if (e.target.classList.contains('btn')) {
-    const bookItem = e.target.parentElement;
-    bookItem.style.display = 'none';
-    booksManager.remove(parseInt(bookItem.id));
-
-    if (booksManager.isEmpty()) {
-      toggleBooksListClasses(true);
-    }
-  }
-}
-
-function add(event) {
-  event.preventDefault();
-  toggleBooksListClasses(false);
-  const book = booksManager.add(this.elements.title.value,
-    this.elements.author.value);
-  booksList.appendChild(renderBook(book));
-}
-
-document.forms[0].addEventListener('submit', add);
-document.body.addEventListener('click', remove);
-document.addEventListener('DOMContentLoaded', populateBooks);
-
-const anchors = document.body.querySelectorAll('.listStyle a');
-
 function switchSection(event) {
   event.preventDefault();
 
@@ -120,4 +94,31 @@ function switchSection(event) {
   }
 }
 
+function remove(e) {
+  if (e.target.classList.contains('btn')) {
+    const bookItem = e.target.parentElement;
+    bookItem.style.display = 'none';
+    booksManager.remove(parseInt(bookItem.id));
+
+    if (booksManager.isEmpty()) {
+      toggleBooksListClasses(true);
+    }
+  }
+}
+
+function add(event) {
+  event.preventDefault();
+  toggleBooksListClasses(false);
+  const book = booksManager.add(this.elements.title.value,
+    this.elements.author.value);
+  booksList.appendChild(renderBook(book));
+
+  document.body.querySelector('.listStyle a').click();
+}
+
+document.forms[0].addEventListener('submit', add);
+document.body.addEventListener('click', remove);
+document.addEventListener('DOMContentLoaded', populateBooks);
+
+const anchors = document.body.querySelectorAll('.listStyle a');
 anchors.forEach((anchor) => anchor.addEventListener('click', switchSection));
