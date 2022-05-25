@@ -3,6 +3,7 @@
 /* eslint-disable no-restricted-syntax */
 
 const booksList = document.querySelector('.books-list');
+const anchors = document.body.querySelectorAll('.listStyle a');
 const bookUniqueId = 'bookStorage';
 
 class BooksManager {
@@ -119,6 +120,4 @@ function add(event) {
 document.forms[0].addEventListener('submit', add);
 document.body.addEventListener('click', remove);
 document.addEventListener('DOMContentLoaded', populateBooks);
-
-const anchors = document.body.querySelectorAll('.listStyle a');
 anchors.forEach((anchor) => anchor.addEventListener('click', switchSection));
